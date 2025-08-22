@@ -3,6 +3,8 @@ package org.parttio;
 import org.parttio.events.GameOverEvent;
 import org.parttio.events.GameStateEvent;
 import org.teavm.jso.JSBody;
+import org.teavm.jso.JSExport;
+import org.teavm.jso.JSProperty;
 import org.teavm.jso.browser.Window;
 import org.teavm.jso.canvas.CanvasRenderingContext2D;
 import org.teavm.jso.dom.events.Event;
@@ -11,7 +13,7 @@ import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 
-public class Client {
+public class TetrisClient {
 
     private static final int PAUSE_TIME_MS = 500;
 
@@ -30,7 +32,8 @@ public class Client {
     private int intervalId;
     private HTMLElement wrapper;
 
-    public Client() {
+    @JSExport
+    public TetrisClient() {
         game = new Game(10, 20);
         var document = HTMLDocument.current();
         wrapper = document.createElement("div");
@@ -122,12 +125,23 @@ public class Client {
 
     }
 
+    @JSExport
+    @JSProperty
+    public HTMLElement getWrapper() {
+        return wrapper;
+    }
+
+    @JSExport
+    public static TetrisClient tetris() {
+        return new TetrisClient();
+    }
+
     public static void main(String[] args) {
-        testLocally();
+        //testLocally();
     }
 
     private static void testLocally() {
-        Client client = new Client();
+        TetrisClient client = new TetrisClient();
         var document = HTMLDocument.current();
         var div = document.createElement("div");
         div.appendChild(document.createElement("p").withText("Game created"));

@@ -64,6 +64,15 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.eclipse.jetty.ee11</groupId>
+        <artifactId>jetty-ee11-maven-plugin</artifactId>
+        <version>12.1.0</version>
+        <configuration>
+          <scan>1</scan>
+        </configuration>
+      </plugin>
+
       <!-- Configure TeaVM -->
       <plugin>
         <groupId>org.teavm</groupId>
@@ -81,11 +90,12 @@
               <targetDirectory>${project.build.directory}/generated/js/teavm</targetDirectory>
 
               <!-- Main class, containing static void main(String[]) -->
-              <mainClass>org.parttio.Client</mainClass>
+              <mainClass>org.parttio.TetrisClient</mainClass>
+              <targetFileName>tetris.js</targetFileName>
 
               <!-- Whether TeaVM should produce minified JavaScript. Can reduce JavaScript file size more than
                    two times -->
-              <minifying>true</minifying>
+              <minifying>false</minifying>
 
               <!-- Whether TeaVM should produce debug information for its built-in debugger -->
               <debugInformationGenerated>true</debugInformationGenerated>
@@ -98,7 +108,8 @@
               <sourceFilesCopied>true</sourceFilesCopied>
 
               <!-- Optimization level. Valid values are: SIMPLE, ADVANCED, FULL -->
-              <optimizationLevel>ADVANCED</optimizationLevel>
+              <optimizationLevel>SIMPLE</optimizationLevel>
+              <jsModuleType>ES2015</jsModuleType>
             </configuration>
           </execution>
         </executions>
