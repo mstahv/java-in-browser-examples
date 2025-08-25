@@ -1,4 +1,4 @@
-package org.parttio.events;
+package org.parttio.tetris.client.events;
 
 import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;

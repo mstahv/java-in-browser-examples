@@ -1,4 +1,4 @@
-package org.parttio;
+package org.parttio.tetris.client;
 
 /**
  * Generic grid for integer values and operations.

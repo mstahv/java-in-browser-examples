@@ -1,4 +1,4 @@
-package org.parttio;
+package org.parttio.tetris.client;
 
 /**
  * Tetriminoes class.

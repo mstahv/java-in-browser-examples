@@ -1,13 +1,14 @@
-package org.parttio;
+package org.parttio.tetris.client;
 
-import org.parttio.events.GameOverEvent;
-import org.parttio.events.GameStateEvent;
+import in.virit.color.Color;
+import in.virit.color.NamedColor;
+import org.parttio.tetris.client.events.GameOverEvent;
+import org.parttio.tetris.client.events.GameStateEvent;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSExport;
 import org.teavm.jso.JSProperty;
 import org.teavm.jso.browser.Window;
 import org.teavm.jso.canvas.CanvasRenderingContext2D;
-import org.teavm.jso.dom.events.Event;
 import org.teavm.jso.dom.events.KeyboardEvent;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
@@ -26,11 +27,12 @@ public class TetrisClient {
     // Tile size in pixels
     private static final int tileSize = 30;
 
-    private static final String PLAYFIELD_COLOR = "#000";
+    private static final Color PLAYFIELD_COLOR = NamedColor.BLACK;
     private final HTMLCanvasElement canvas;
     private final Game game;
     private int intervalId;
     private HTMLElement wrapper;
+    private int oldScore = 0;
 
     @JSExport
     public TetrisClient() {
@@ -108,17 +110,19 @@ public class TetrisClient {
             game.step();
             drawGameState();
             boolean over = game.isOver();
+            int score = game.getScore();
             if(over) {
                 Window.clearInterval(intervalId);
                 // send a custom event to notify the game is over
-                GameOverEvent gameOverEvent = createGameOverEvent();
-                int score = game.getScore();
-                gameOverEvent.getDetail().setScore(game.getScore());
-                wrapper.dispatchEvent(gameOverEvent);
-            } else {
+                GameOverEvent gameOverEvent = createGameOverEvent(score);
+                HTMLElement parentNode = (HTMLElement) wrapper.getParentNode();
+                parentNode.dispatchEvent(gameOverEvent);
+            } else if (score != oldScore) {
                 // send a custom event to notify the game state
-                GameStateEvent gameStateEvent = createGameStateEvent(game.getScore());
-                wrapper.dispatchEvent(gameStateEvent);
+                GameStateEvent gameStateEvent = createGameStateEvent(score);
+                HTMLElement parentNode = (HTMLElement) wrapper.getParentNode();
+                parentNode.dispatchEvent(gameStateEvent);
+                oldScore = score;
             }
 
         }, PAUSE_TIME_MS);
@@ -136,30 +140,6 @@ public class TetrisClient {
         return new TetrisClient();
     }
 
-    public static void main(String[] args) {
-        //testLocally();
-    }
-
-    private static void testLocally() {
-        TetrisClient client = new TetrisClient();
-        var document = HTMLDocument.current();
-        var div = document.createElement("div");
-        div.appendChild(document.createElement("p").withText("Game created"));
-        document.getBody().appendChild(div);
-        document.getBody().appendChild(client.wrapper);
-
-        client.wrapper.addEventListener("game-over-event", (Event e) -> {
-            GameOverEvent gameOverEvent = (GameOverEvent) e;
-            Window.alert("Game Over! Score: " + gameOverEvent.getDetail().getScore());
-        });
-
-        client.wrapper.addEventListener("game-state-event", (Event e) -> {
-            GameStateEvent gameStateEvent = (GameStateEvent) e;
-            div.withText("Game State Updated: " + gameStateEvent.getDetail().getScore());
-        });
-
-    }
-
     /**
      * Draw the current game state.
      *
@@ -168,7 +148,7 @@ public class TetrisClient {
         // Reset and clear canvas
         CanvasRenderingContext2D context = (CanvasRenderingContext2D) canvas.getContext("2d");
         context.clearRect(0, 0, tileSize * PLAYFIELD_W, tileSize * PLAYFIELD_H);
-        context.setFillStyle(PLAYFIELD_COLOR);
+        context.setFillStyle(PLAYFIELD_COLOR.toRgbColor().toHexColor().toString());
 
         context.fillRect(0, 0, game.getWidth() * tileSize + 2, game.getHeight()
                 * tileSize + 2);
@@ -193,13 +173,14 @@ public class TetrisClient {
     }
 
     @JSBody(
-            script = "return new CustomEvent('game-over-event', {detail:{}});"
+            params = { "score" },
+            script = "return new CustomEvent('game-over-event', {bubbles:true, detail:{'score': score}});"
     )
-    private static native GameOverEvent createGameOverEvent();
+    private static native GameOverEvent createGameOverEvent(int score);
 
     @JSBody(
             params = { "score" },
-            script = "return new CustomEvent('game-state-event', {detail:{'score': score}});"
+            script = "return new CustomEvent('game-state-event', {bubbles:true , detail:{'score': score}});"
     )
     private static native GameStateEvent createGameStateEvent(int score);
 
