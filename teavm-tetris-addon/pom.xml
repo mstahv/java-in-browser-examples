@@ -8,8 +8,8 @@
     <relativePath />
   </parent>
 
-  <groupId>org.parttio</groupId>
-  <artifactId>teavm-tetris</artifactId>
+  <groupId>org.vaadin.example</groupId>
+  <artifactId>teavm-tetris-addon</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -22,9 +22,12 @@
   <dependencies>
 
     <dependency>
-      <groupId>in.virit</groupId>
-      <artifactId>color</artifactId>
-      <version>0.0.2</version>
+      <groupId>org.vaadin.example</groupId>
+      <artifactId>tetris-lib</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <!-- This is only for client-code compiled with teavm,
+      not needed for the Vaadin add-on, thus provided scope -->
+      <scope>provided</scope>
     </dependency>
 
     <!-- Emulator of Java class library for TeaVM -->
@@ -79,9 +82,6 @@
       <resource>
         <directory>src/main/resources</directory>
       </resource>
-      <resource>
-        <directory>target/generated-resources</directory>
-      </resource>
     </resources>
     <plugins>
 
@@ -97,9 +97,8 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-              <!-- Directory where TeaVM should put generated files. This configuration conforms to the settings
-                   of the WAR plugin -->
-              <targetDirectory>${project.build.directory}/generated-resources/META-INF/resources/frontend/tetris</targetDirectory>
+              <!-- Compile to meta-inf resources so output available in add-on -->
+              <targetDirectory>${project.build.outputDirectory}/META-INF/resources/frontend/tetris</targetDirectory>
 
               <!-- Main class, containing static void main(String[]) -->
               <mainClass>org.parttio.tetris.client.TetrisClient</mainClass>
@@ -107,7 +106,7 @@
 
               <!-- Whether TeaVM should produce minified JavaScript. Can reduce JavaScript file size more than
                    two times -->
-              <minifying>false</minifying>
+              <minifying>true</minifying>
 
               <!-- Whether TeaVM should produce debug information for its built-in debugger -->
               <debugInformationGenerated>true</debugInformationGenerated>
@@ -120,7 +119,7 @@
               <sourceFilesCopied>true</sourceFilesCopied>
 
               <!-- Optimization level. Valid values are: SIMPLE, ADVANCED, FULL -->
-              <optimizationLevel>SIMPLE</optimizationLevel>
+              <optimizationLevel>ADVANCED</optimizationLevel>
               <jsModuleType>ES2015</jsModuleType>
             </configuration>
           </execution>

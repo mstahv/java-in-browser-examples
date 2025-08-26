@@ -1,0 +1,14 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.vaadin.example</groupId>
+  <artifactId>java-in-browser</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>tetris-lib</module>
+    <module>plain-java-tetris</module>
+    <module>cheerpj-tetris-addon</module>
+    <module>teavm-tetris-addon</module>
+    <module>demo-app</module>
+  </modules>
+</project>

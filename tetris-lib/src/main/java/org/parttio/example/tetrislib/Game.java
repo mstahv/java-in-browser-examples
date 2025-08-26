@@ -1,4 +1,4 @@
-package org.parttio.tetris.client;
+package org.parttio.example.tetrislib;
 
 /**
  * Tetis game class.

@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>in.virit.sb</groupId>
+    <artifactId>viritin-addon-project-parent</artifactId>
+    <version>0.0.8</version>
+    <relativePath />
+  </parent>
+
+  <groupId>org.parttio</groupId>
+  <artifactId>cheerpj-tetris</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <java.version>17</java.version>
+    <teavm.version>0.12.3</teavm.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+
+    <!-- Servlet specification -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>in.virit</groupId>
+      <artifactId>mopo</artifactId>
+      <version>0.0.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>in.virit</groupId>
+      <artifactId>viritin</artifactId>
+      <version>2.14.5</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Devtools is cool, especially if you don't have JRebel -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>target/generated-resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.8.1</version>
+        <executions>
+          <execution>
+            <id>copy-external-jar</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <!-- Define the artifact you want to copy -->
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.vaadin.example</groupId>
+                  <artifactId>plain-java-tetris</artifactId>
+                  <version>1.0-SNAPSHOT</version>
+                  <type>jar</type>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>${project.build.directory}/generated-resources/META-INF/resources</outputDirectory>
+                  <destFileName>tetris.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

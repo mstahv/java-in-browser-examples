@@ -1,7 +1,8 @@
 package org.parttio.tetris.client;
 
-import in.virit.color.Color;
-import in.virit.color.NamedColor;
+import org.parttio.example.tetrislib.Game;
+import org.parttio.example.tetrislib.Grid;
+import org.parttio.example.tetrislib.Tetromino;
 import org.parttio.tetris.client.events.GameOverEvent;
 import org.parttio.tetris.client.events.GameStateEvent;
 import org.teavm.jso.JSBody;
@@ -27,7 +28,6 @@ public class TetrisClient {
     // Tile size in pixels
     private static final int tileSize = 30;
 
-    private static final Color PLAYFIELD_COLOR = NamedColor.BLACK;
     private final HTMLCanvasElement canvas;
     private final Game game;
     private int intervalId;
@@ -148,7 +148,7 @@ public class TetrisClient {
         // Reset and clear canvas
         CanvasRenderingContext2D context = (CanvasRenderingContext2D) canvas.getContext("2d");
         context.clearRect(0, 0, tileSize * PLAYFIELD_W, tileSize * PLAYFIELD_H);
-        context.setFillStyle(PLAYFIELD_COLOR.toRgbColor().toHexColor().toString());
+        context.setFillStyle("black");
 
         context.fillRect(0, 0, game.getWidth() * tileSize + 2, game.getHeight()
                 * tileSize + 2);

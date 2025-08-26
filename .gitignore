@@ -1,3 +1,10 @@
 teavm-tetris-addon/src/main/frontend/generated
 cheerpj-tetris-addon/src/main/frontend/generated
 teavm-tetris-addon/target
+demo-app/node_modules
+demo-app/target
+cheerpj-tetris-addon/target
+demo-app/src/main/frontend/generated
+plain-java-tetris/target
+tetris-lib/target
+demo-app/src/main/frontend

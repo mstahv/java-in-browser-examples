@@ -1,8 +1,9 @@
 package org.parttio.tetris;
 
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
+import org.vaadin.firitin.components.notification.VNotification;
 import org.vaadin.firitin.components.orderedlayout.VVerticalLayout;
 
 @Route
@@ -10,17 +11,15 @@ public class MainView extends VVerticalLayout {
     public MainView() {
         H1 h1 = new H1("Client-side Tetris with Vaadin Flow");
         add(h1);
-        var tetris = new TeaVMTetrisComponent();
+        var tetris = new CheerpJTetrisComponent();
         add(tetris);
 
         tetris.addGameOverListener(e -> {
-            Dialog dialog = new Dialog();
-            dialog.setHeaderTitle("Game Over");
-            dialog.add("Game Over! Your score: " + e.getScore());
-            dialog.open();
+            VNotification.prominent("Game Over! Final score: " + e.getScore());
         });
+
         tetris.addGameStateListener(e -> {
-           h1.setText("Client-side Tetris with Vaadin Flow, current score: " + e.getScore());
+            Notification.show("Score now: " + e.getScore()).setPosition(Notification.Position.TOP_END);
         });
 
     }

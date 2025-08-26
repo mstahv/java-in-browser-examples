@@ -12,9 +12,9 @@ import com.vaadin.flow.shared.Registration;
 
 @Tag("tetris-component")
 @JsModule("./tetris/tetrisConnector.js")
-public class TetrisComponent extends Component {
+public class TeaVMTetrisComponent extends Component {
 
-    public TetrisComponent() {
+    public TeaVMTetrisComponent() {
     }
 
     @Override
@@ -49,23 +49,23 @@ public class TetrisComponent extends Component {
 
     @DomEvent("game-state-event")
     public static class GameStateEvent extends GameEvent {
-        public GameStateEvent(TetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
+        public GameStateEvent(TeaVMTetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
             super(source, true, score);
         }
     }
 
     @DomEvent("game-over-event")
     public static class GameOverEvent extends GameEvent {
-        public GameOverEvent(TetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
+        public GameOverEvent(TeaVMTetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
             super(source, true, score);
         }
     }
 
 
-    public static abstract class GameEvent extends ComponentEvent<TetrisComponent> {
+    public static abstract class GameEvent extends ComponentEvent<TeaVMTetrisComponent> {
         private final int score;
 
-        public GameEvent(TetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
+        public GameEvent(TeaVMTetrisComponent source, boolean fromClient, @EventData("event.detail.score") int score) {
             super(source, fromClient);
             this.score = score;
         }
