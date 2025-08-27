@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import org.parttio.example.tetrislib.Game;
 import org.parttio.example.tetrislib.Grid;
+import org.parttio.example.tetrislib.Tetromino;
 
 public class TetrisGWT implements EntryPoint {
 
@@ -164,14 +165,13 @@ public class TetrisGWT implements EntryPoint {
                 }
             }
         };
-        gameTimer.scheduleRepeating(1000); // Move piece down every second
+        gameTimer.scheduleRepeating(500); // Move piece down 2x every second
     }
 
     private void render() {
         // Clear canvas
         context.setFillStyle("#000");
         context.fillRect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
-//        context.clearRect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
 
         // Get current game state
         Grid state = game.getCurrentState();
@@ -179,47 +179,16 @@ public class TetrisGWT implements EntryPoint {
         // Draw grid
         for (int x = 0; x < state.getWidth(); x++) {
             for (int y = 0; y < state.getHeight(); y++) {
-                int cellValue = state.get(x, y);
-                if (cellValue != 0) {
-                    String color = getColorForValue(cellValue);
-                    drawCell(x, y, color);
+                int tile = state.get(x, y);
+                if (tile > 0) {
+                    String color = Tetromino.get(tile).getColor();
+                    context.setFillStyle(color);
+                    context.fillRect(x * CELL_SIZE + 1, y * CELL_SIZE + 1,
+                            CELL_SIZE - 2, CELL_SIZE - 2);
                 }
             }
         }
 
-        // Draw grid lines
-        drawGridLines();
-    }
-
-    private void drawCell(int x, int y, String color) {
-        context.setFillStyle(color);
-        context.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-
-        // Draw border
-        context.setStrokeStyle("#fff");
-        context.setLineWidth(1);
-        context.strokeRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-    }
-
-    private void drawGridLines() {
-        context.setStrokeStyle("#333");
-        context.setLineWidth(1);
-
-        // Vertical lines
-        for (int x = 0; x <= GAME_WIDTH; x++) {
-            context.beginPath();
-            context.moveTo(x * CELL_SIZE, 0);
-            context.lineTo(x * CELL_SIZE, GAME_HEIGHT * CELL_SIZE);
-            context.stroke();
-        }
-
-        // Horizontal lines
-        for (int y = 0; y <= GAME_HEIGHT; y++) {
-            context.beginPath();
-            context.moveTo(0, y * CELL_SIZE);
-            context.lineTo(GAME_WIDTH * CELL_SIZE, y * CELL_SIZE);
-            context.stroke();
-        }
     }
 
     private String getColorForValue(int value) {

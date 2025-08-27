@@ -106,6 +106,8 @@ public class TetrisClient {
         wrapper.appendChild(controls);
         wrapper.appendChild(canvas);
 
+        drawGameState();
+
         this.intervalId = Window.setInterval(() -> {
             game.step();
             drawGameState();
@@ -157,10 +159,8 @@ public class TetrisClient {
         Grid state = game.getCurrentState();
         for (int x = 0; x < state.getWidth(); x++) {
             for (int y = 0; y < state.getHeight(); y++) {
-
                 int tile = state.get(x, y);
                 if (tile > 0) {
-
                     String color = Tetromino.get(tile).getColor();
                     context.setFillStyle(color);
                     context.fillRect(x * tileSize + 1, y * tileSize + 1,
