@@ -8,3 +8,6 @@ demo-app/src/main/frontend/generated
 plain-java-tetris/target
 tetris-lib/target
 demo-app/src/main/frontend
+gwt-tetris-addon/node_modules
+gwt-tetris-addon/target
+gwt-tetris-addon/src/main/frontend

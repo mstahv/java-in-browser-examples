@@ -24,8 +24,13 @@ public class MainView extends VerticalLayout {
         in the browser is still there if you need it. GWT is still maintained 
         (and used by some Vaadin Flow users), and there are also newer options
         to choose from.
+        
+        Using Java in the browser is not as seamless as using Java on the server,
+        but there can be good reasons to do it, like re-using existing Java code
+        or components, or if you have a team of Java developers that prefer Java
+        over JavaScript (I would for larger components).
                
-        As an example, this project provides two Tetris game implementations. It
+        As an example, this project provides three Tetris game implementations. It
         re-uses the same game core that has worked for use for years as [a WebSocket 
         demo](https://tetris.demo.vaadin.com). But here, the core game (graphics 
         and controls) is executed in the browser, not on the server the rest of the
@@ -49,6 +54,15 @@ public class MainView extends VerticalLayout {
           Vaadin component packages the game implementation compiled with TeaVM and 
           sends game state events to the Vaadin application running on the server. 
           [More info, teavm.org](https://teavm.org).
+        * GWT is the original Java-to-JavaScript compiler that 
+          has been around for over 15 years. Technically it transpiles Java source code to 
+          optimized JavaScript. The GWT implementation in this demo uses Canvas for rendering 
+          and demonstrates classic GWT development patterns. The Vaadin component 
+          embeds the GWT-compiled game (JavaScript) and forwards events to the server.
+          GWT is famous for its efficiency on non-trivial applications and infamous for
+          its long compilation times and complex development experience (e.g. re-using 
+          existing Java library is far from just including it in your pom.xml).
+          [More info, gwtproject.org](https://www.gwtproject.org).
         
         **ATTENTION!** Both this kind of solutions break the "server-side security model"
         of Vaadin Flow that you might be very accustomed to. In this kind of architecture 
