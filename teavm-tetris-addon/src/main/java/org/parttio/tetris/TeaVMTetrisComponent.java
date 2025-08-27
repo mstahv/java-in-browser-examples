@@ -21,20 +21,8 @@ public class TeaVMTetrisComponent extends Component {
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
         getElement().executeJs("""
-                    const c = tetris();
+                    const c = teavmtetris();
                     this.appendChild(c.wrapper);
-                
-                    if(false) {
-                        this.addEventListener("game-over-event", (e) => {
-                            const gameOverEvent = e.detail;
-                            alert("Game Over! Score: " + gameOverEvent.score);
-                        });
-                        this.addEventListener("game-state-event", (e) => {
-                            const gameStateEvent = e.detail;
-                            console.log("Game State Updated: " + gameStateEvent.score);
-                        });
-                    }
-                
                 """);
 
     }
