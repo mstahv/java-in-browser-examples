@@ -14,7 +14,7 @@ public class Layout extends MainLayout {
 
     Anchor viewSource = new Anchor("", "View source");
 
-    private static final String baseSourceUrl = "https://github.com/mstahv/java-in-browser-examples/blob/main/src/main/java/%s.java";
+    private static final String baseSourceUrl = "https://github.com/mstahv/java-in-browser-examples/blob/main/demo-app/src/main/java/%s.java";
 
     @Override
     public void setContent(Component content) {
