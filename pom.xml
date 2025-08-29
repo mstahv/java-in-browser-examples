@@ -10,6 +10,9 @@
     <module>cheerpj-tetris-addon</module>
     <module>teavm-tetris-addon</module>
     <module>gwt-tetris-addon</module>
+    <!-- DISABLED FOR NOW, SEE README
+    <module>graalvm-wasm-tetris</module> -->
+    <module>graalvm-tetris-addon</module>
     <module>demo-app</module>
   </modules>
 </project>

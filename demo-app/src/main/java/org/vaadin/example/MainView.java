@@ -63,6 +63,13 @@ public class MainView extends VerticalLayout {
           its long compilation times and complex development experience (e.g. re-using 
           existing Java library is far from just including it in your pom.xml).
           [More info, gwtproject.org](https://www.gwtproject.org).
+        * GraalVM's native compilation has experimental support for WebAssembly. Similarly to
+          TeaVM, Java code can be compiled to format that can be executed in modern browsers and
+          there is a thing JS interoperability layer available. There are limitations
+          like no graphics or threads and wasm output is fairly non-optimised, but it's an 
+          interesting option for the future. It has similarish limitations as with TeaVM 
+          (like reflection, but probably can be worked around, like in regular GraalVM native 
+          compilations).
         
         **ATTENTION!** Both this kind of solutions break the "server-side security model"
         of Vaadin Flow that you might be very accustomed to. In this kind of architecture 

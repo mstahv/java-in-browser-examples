@@ -11,3 +11,7 @@ demo-app/src/main/frontend
 gwt-tetris-addon/node_modules
 gwt-tetris-addon/target
 gwt-tetris-addon/src/main/frontend
+src/main/frontend
+graalvm-tetris-addon/src/main/frontend
+graalvm-tetris-addon/target
+graalvm-wasm-tetris/target

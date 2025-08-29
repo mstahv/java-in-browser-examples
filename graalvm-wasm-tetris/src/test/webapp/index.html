@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="graaltetris.js"></script>
+        <script>
+            function run() {
+              const container = document.getElementById("tetrisContainer");
+              window.graalTetris(container);
+              container.addEventListener("game-state-event", e => {
+                console.log("Game state event");
+                debugger;
+              });
+            }
+        </script>
+    </head>
+   <body>
+
+   <button onclick="run()">Run tetris</button>
+   <div id="tetrisContainer"></div>
+
+   </body>
+</html>
