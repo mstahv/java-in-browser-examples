@@ -145,7 +145,7 @@
                             <style>OBFUSCATED</style>
 
                             <!-- Enable source maps for debugging -->
-                            <sourceLevel>1.8</sourceLevel>
+                            <sourceLevel>11</sourceLevel>
 
                             <!-- Optimization settings -->
                             <optimize>9</optimize>
