@@ -15,3 +15,6 @@ src/main/frontend
 graalvm-tetris-addon/src/main/frontend
 graalvm-tetris-addon/target
 graalvm-wasm-tetris/target
+.flattened-pom.xml
+dependency-reduced-pom.xml
+*.bundle
